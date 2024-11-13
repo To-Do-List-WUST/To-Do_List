@@ -1,0 +1,45 @@
+body{
+    font-family: Arial, san-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+h1 {
+    color: #007BFF
+}
+.input-container{
+    margin: 10px;
+}
+input[type="text"]{
+    padding: 10px;
+    font-size: 16px;
+    width: 200px;
+}
+button{
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+#tasklist{
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    background: #fff;
+    padding: 20px;
+    margin: 10px auto;
+    width: 300px;
+    text-align: left;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+}
+.complete{
+    text-decoration: line-through;
+    color: grey;
+}
+.delete-button{
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
