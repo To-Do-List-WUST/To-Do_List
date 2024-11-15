@@ -10,10 +10,21 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 
 // 创建任务的html属性，模块化开发
-function createTaskElement(taskText) {
+function createTaskElement(taskText,prioritySelect) {
     const listItem = document.createElement('li');
     listItem.textContent = taskText;
-
+    // 根据不同优先级设置不同背景颜色
+    switch(prioritySelect){
+        case 'high':
+            listItem.style.backgroundColor = '#ffcccc'; //红色背景，最高优先级
+            break;
+        case 'medium':
+            listItem.style.backgroundColor = '#fff4cc'; //黄色背景，中优先级
+            break;
+        case 'low':
+            listItem.style.backgroundColor = '#ccffcc'; //绿色背景，低优先级
+            break;
+    }
     const completeButton = document.createElement('button');
     completeButton.textContent = "Move to Doing";
     completeButton.onclick = function () {
@@ -41,6 +52,7 @@ function createTaskElement(taskText) {
 function addTask() {
     const taskInput = document.getElementById('taskInput');
     const taskText = taskInput.value.trim();
+    const prioritySelect = document.getElementById('prioritySelect').value;
     const errormessage = document.getElementById('errormessage');
     if (taskText === "") {
         // alert("Task cannot be empty. Please enter a task.")
@@ -50,7 +62,7 @@ function addTask() {
 
     errormessage.textContent="";
     const taskList = document.getElementById('todoList');
-    const newTask = createTaskElement(taskText);
+    const newTask = createTaskElement(taskText,prioritySelect);
     taskList.appendChild(newTask);
 
     taskInput.value = "";// 清除输入框内容

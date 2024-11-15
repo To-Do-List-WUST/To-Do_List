@@ -2,37 +2,48 @@ body{
     font-family: Arial, san-serif;
     text-align: center;
     background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;/*使元素的宽度和高度包含内边距和边框，方便布局*/
 }
 h1 {
-    color: #007BFF
+    color: #007BFF;
+    margin: 20px 0;
 }
 .input-container{
-    margin: 10px;
+    margin: 20px auto;
+    max-width: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /*沿着水平轴居中*/
 }
 input[type="text"]{
     padding: 10px;
     font-size: 16px;
-    width: 200px;
+    flex: 1;
+    min-width: 200px;
+    max-width: 400px;
 }
 button{
     padding: 10px;
     font-size: 16px;
     cursor: pointer;
     border: none;
+    marigin-left: 5px;
 }
 #tasklist{
     list-style-type: none;
     padding: 0;
 }
 li {
-    background: #fff;
-    padding: 20px;
-    margin: 10px auto;
-    width: 300px;
-    text-align: left;
+    background: #f0f0f0;
+    padding: 15px;
+    margin: 10px;
     border: 1px solid #ddd;
     display: flex;
+    flex-wrap: flex;
     justify-content: space-between;
+    align-items: center;
     transition: background-color 0.3s ease;
 }
 li:hover{
@@ -47,14 +58,17 @@ li:hover{
     color: white;
     border: none;
     cursor: pointer;
+    padding: 5px;
+    margin-left: 10px;
 }
 #todocontainer, #doingcontainer, #donecontainer{
     background: #fff;
     padding: 20px;
     border: 1px solid #ddd;
     width: 30%;
-    box-sizing: boreder-box;
+    box-sizing: border-box;
     margin: 10px;
+    min-width: 250px;
 }
 #errormessage{
     margin-top: 10px;
@@ -62,8 +76,26 @@ li:hover{
 }
 .task-sections{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 20px auto;
+}
+@media screen and (max-width: 768px){/*为手机屏幕设计样式*/
+    .task-sections{
+        flex-direction: column;
+        align-items: center;
+    }
+    #todocontainer, #donecontainer, #doingcontainer{
+        width: 90%;
+        margin: 15px 0;
+    }
+    button{
+        margin-top: 10px;
+    }
+    li{
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
