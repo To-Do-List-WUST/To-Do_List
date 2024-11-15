@@ -1,20 +1,28 @@
-// 用addEventListener，设置<button>ID, 避免在HTML中用Onclck属性
-document.getElementById('addTaskButton').addEventListener('click', addTask);
-// 用回车键增加任务
-document.getElementById('taskInput').addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        addTask();
-    }
+document.addEventListener('DOMContentLoaded',function(){
+    // 用addEventListener，设置<button>ID, 避免在HTML中用Onclck属性
+    document.getElementById('addTaskButton').addEventListener('click', addTask);
+    // 用回车键增加任务
+    document.getElementById('taskInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            addTask();
+        }
+    });
 });
+
 // 创建任务的html属性，模块化开发
 function createTaskElement(taskText) {
     const listItem = document.createElement('li');
     listItem.textContent = taskText;
 
     const completeButton = document.createElement('button');
-    completeButton.textContent = "Complete";
+    completeButton.textContent = "Move to Doing";
     completeButton.onclick = function () {
-        listItem.classList.toggle('complete');
+        document.getElementById('doingList').appendChild(listItem);
+        completeButton.textContent="Move to Done";
+        completeButton.onclick = function(){
+            document.getElementById('doneList').appendChild(listItem);
+            completeButton.remove();
+        };
     };
 
     const deleteButton = document.createElement('button');
@@ -33,6 +41,7 @@ function createTaskElement(taskText) {
 function addTask() {
     const taskInput = document.getElementById('taskInput');
     const taskText = taskInput.value.trim();
+    const errormessage = document.getElementById('errormessage');
 
     if (taskText === "") {
         // alert("Task cannot be empty. Please enter a task.")
@@ -41,7 +50,7 @@ function addTask() {
     }
 
     errormessage.textContent="";
-    const taskList = document.getElementById('taskList');
+    const taskList = document.getElementById('todoList');
     const newTask = createTaskElement(taskText);
     taskList.appendChild(newTask);
 

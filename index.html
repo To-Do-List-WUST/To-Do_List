@@ -14,7 +14,25 @@
         <button id="addTaskButton">Add Task</button>
         <p id="errormessage" style="color: red;"></p>
     </div>
-    <ul id="taskList"></ul>
+    <div class="task-sections">
+        <!-- To-Do Section -->
+        <div id = "todocontainer">
+            <h2>To-Do</h2>
+            <ul id="todoList"></ul>
+        </div>
+
+        <!-- Doing Section -->
+        <div id ="doingcontainer">
+            <h2>Doing</h2>
+            <ul id="doingList"></ul>
+        </div>
+
+        <!-- Done Section -->
+        <div id="donecontainer">
+            <h2>Done</h2>
+            <ul id="doneList"></ul>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

@@ -48,3 +48,22 @@ li:hover{
     border: none;
     cursor: pointer;
 }
+#todocontainer, #doingcontainer, #donecontainer{
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    width: 30%;
+    box-sizing: boreder-box;
+    margin: 10px;
+}
+#errormessage{
+    margin-top: 10px;
+    color: red;
+}
+.task-sections{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+}
