@@ -42,7 +42,6 @@ function addTask() {
     const taskInput = document.getElementById('taskInput');
     const taskText = taskInput.value.trim();
     const errormessage = document.getElementById('errormessage');
-
     if (taskText === "") {
         // alert("Task cannot be empty. Please enter a task.")
         errormessage.textContent = "Task cannot be empty. Please enter a task.";
