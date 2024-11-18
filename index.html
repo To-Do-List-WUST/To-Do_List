@@ -11,6 +11,7 @@
     <h1>To-Do List</h1>
     <div class="input-container">
         <input type="text" id="taskInput" placeholder="Add a new task">
+        <input type="datetime-local" id="dueDateInput" placeholder="Select due date">
         <select id="prioritySelect">
             <option value="high">High</option>
             <option value="medium">Medium</option>
@@ -18,6 +19,11 @@
         </select>
         <button id="addTaskButton">Add Task</button>
         <p id="errormessage" style="color: red;"></p>
+    </div>
+    <div id="descriptionModal" class="hidden">
+        <h2>Task Description</h2>
+        <p id="taskDescriptionContent"></p>
+        <button id="closeDescriptionButton">Close</button>
     </div>
     <div class="task-sections">
         <!-- To-Do Section -->

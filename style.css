@@ -7,11 +7,23 @@ body{
     box-sizing: border-box;/*使元素的宽度和高度包含内边距和边框，方便布局*/
 }
 h1 {
-    color: #007BFF;
+    color: #007BFF; /* 标题颜色 */
     margin: 20px 0;
 }
+button{
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    margin-left: 5px; /* 按钮左边距 */
+}
+#errormessage{
+    margin-top: 10px;
+    color: red;
+}
+/* 输入容器样式 */
 .input-container{
-    margin: 20px auto;
+    margin: 20px auto; /* 居中*/
     max-width: 600px;
     display: flex;
     flex-wrap: wrap;
@@ -24,13 +36,7 @@ input[type="text"]{
     min-width: 200px;
     max-width: 400px;
 }
-button{
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    marigin-left: 5px;
-}
+/* 列表样式 */
 #tasklist{
     list-style-type: none;
     padding: 0;
@@ -39,27 +45,19 @@ li {
     background: #f0f0f0;
     padding: 15px;
     margin: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #ddd; /* 边框样式 */
     display: flex;
-    flex-wrap: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     transition: background-color 0.3s ease;
 }
 li:hover{
-    background-color: #f9f9f9;
+    background-color: #f9f9f9; /* 鼠标悬停时的背景色 */
 }
 .complete{
     text-decoration: line-through;
     color: grey;
-}
-.delete-button{
-    background: red;
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    margin-left: 10px;
 }
 #todocontainer, #doingcontainer, #donecontainer{
     background: #fff;
@@ -70,18 +68,76 @@ li:hover{
     margin: 10px;
     min-width: 250px;
 }
-#errormessage{
-    margin-top: 10px;
-    color: red;
-}
 .task-sections{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: flex;  /* 设置为横向布局 */
+    flex-wrap: wrap; /* 自动换行 */
+    justify-content: space-between; /* 列之间的间距均匀 */
     align-items: flex-start;
     max-width: 1200px;
     margin: 20px auto;
 }
+.task-title{
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.task-description-link{
+    font-style: italic;
+    margin: 5px 0;
+    color: #007BFF;
+    text-decoration: underline;
+    cursor: pointer;
+}
+/* 按钮区域样式 */
+.task-buttons button, .task-buttons a {
+    margin-right: 5px;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+/* 按钮样式 */
+button:hover {
+    opacity: 0.9; /*鼠标悬停时透明度发生变化*/
+}
+.delete-button{
+    background: #dc3545;
+    color: white;
+    border: none;
+}
+.delete-button:hover{
+    background: #c82333;
+}
+.move-button{
+    background: #28a745;
+    color: white;
+}
+.move-button:hover{
+    background: #218838;
+}
+.edit-button{
+    background: #007bff;
+    color: white;
+}
+.edit-button:hover {
+    background: #0056b3;
+}
+/* 描述界面样式 */
+#descriptionModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 居中对齐 */
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影 */
+    z-index: 1000; /* 置于顶层 */
+}
+
+.hidden {
+    display: none;
+}
+/* 手机屏幕优化 */
 @media screen and (max-width: 768px){/*为手机屏幕设计样式*/
     .task-sections{
         flex-direction: column;
