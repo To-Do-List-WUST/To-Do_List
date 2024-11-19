@@ -28,13 +28,13 @@ function createTaskElement(taskText,prioritySelect,dueDate) {
     // 根据不同优先级设置不同背景颜色
     switch(prioritySelect){
         case 'high':
-            listItem.style.backgroundColor = '#ffcccc'; //红色背景，最高优先级
+            listItem.classList.add('high'); //红色背景，最高优先级
             break;
         case 'medium':
-            listItem.style.backgroundColor = '#fff4cc'; //黄色背景，中优先级
+            listItem.classList.add('medium'); //黄色背景，中优先级
             break;
         case 'low':
-            listItem.style.backgroundColor = '#ccffcc'; //绿色背景，低优先级
+            listItem.classList.add('low'); //绿色背景，低优先级
             break;
     }
     // 倒计时区域

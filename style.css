@@ -1,92 +1,141 @@
-body{
-    font-family: Arial, san-serif;
+/* =====================
+   全局样式
+===================== */
+body {
+    font-family: 'Roboto', sans-serif;
     text-align: center;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;/*使元素的宽度和高度包含内边距和边框，方便布局*/
+    box-sizing: border-box; /* 包含内边距和边框 */
 }
+
 h1 {
     color: #007BFF; /* 标题颜色 */
     margin: 20px 0;
 }
-button{
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    margin-left: 5px; /* 按钮左边距 */
-}
-#errormessage{
+
+/* 错误消息样式 */
+#errormessage {
     margin-top: 10px;
     color: red;
 }
-/* 输入容器样式 */
-.input-container{
-    margin: 20px auto; /* 居中*/
+
+/* =====================
+   输入区域样式
+===================== */
+.input-container {
+    margin: 20px auto; /* 居中 */
     max-width: 600px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /*沿着水平轴居中*/
+    justify-content: center; /* 水平居中 */
 }
-input[type="text"]{
+
+input[type="text"] {
     padding: 10px;
     font-size: 16px;
-    flex: 1;
+    flex: 1; /* 自动扩展 */
     min-width: 200px;
     max-width: 400px;
 }
-/* 列表样式 */
-#tasklist{
+
+/* =====================
+   列表样式
+===================== */
+#tasklist {
     list-style-type: none;
     padding: 0;
 }
+
+/* =====================
+   任务样式
+===================== */
 li {
-    background: #f0f0f0;
+    background: white;
     padding: 15px;
     margin: 10px;
-    border: 1px solid #ddd; /* 边框样式 */
+    border: 1px solid #ddd; /* 边框 */
+    border-radius: 10px; /* 圆角 */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; /* 内容上下分布 */
     align-items: flex-start;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
-li:hover{
-    background-color: #f9f9f9; /* 鼠标悬停时的背景色 */
+
+li:hover {
+    background-color: #f9f9f9; /* 鼠标悬停背景 */
+    transform: translateY(-5px); /* 悬停浮动效果 */
 }
-.complete{
-    text-decoration: line-through;
+
+.complete {
+    text-decoration: line-through; /* 完成任务加删除线 */
     color: grey;
 }
-#todocontainer, #doingcontainer, #donecontainer{
+
+/* 优先级背景样式 */
+.high {
+    background: linear-gradient(135deg, #ff7b7b, #ff4c4c); /* 红色渐变 */
+    color: white;
+}
+
+.medium {
+    background: linear-gradient(135deg, #ffd37b, #ffad4c); /* 橙色渐变 */
+    color: black;
+}
+
+.low {
+    background: linear-gradient(135deg, #c3ff7b, #9fff4c); /* 绿色渐变 */
+    color: black;
+}
+
+/* =====================
+   容器样式
+===================== */
+#todocontainer, #doingcontainer, #donecontainer {
     background: #fff;
     padding: 20px;
     border: 1px solid #ddd;
-    width: 30%;
+    width: 30%; /* 每列占30%宽度 */
     box-sizing: border-box;
     margin: 10px;
     min-width: 250px;
 }
-.task-sections{
-    display: flex;  /* 设置为横向布局 */
+
+.task-sections {
+    display: flex; /* 横向布局 */
     flex-wrap: wrap; /* 自动换行 */
-    justify-content: space-between; /* 列之间的间距均匀 */
+    justify-content: space-between; /* 均匀分布 */
     align-items: flex-start;
     max-width: 1200px;
     margin: 20px auto;
 }
-.task-title{
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-.task-description-link{
-    font-style: italic;
-    margin: 5px 0;
-    color: #007BFF;
-    text-decoration: underline;
+
+/* =====================
+   按钮样式
+===================== */
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px; /* 圆角 */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 默认阴影 */
     cursor: pointer;
+    border: none;
+    margin-left: 5px; /* 按钮间距 */
+    display: inline-block; /* 行内块布局 */
 }
+
+button:hover {
+    background-color: #0056b3; /* 悬停加深背景 */
+    transform: scale(1.05); /* 放大 */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* 加深阴影 */
+}
+
 /* 按钮区域样式 */
 .task-buttons button, .task-buttons a {
     margin-right: 5px;
@@ -95,62 +144,90 @@ li:hover{
     font-size: 14px;
     cursor: pointer;
 }
-/* 按钮样式 */
-button:hover {
-    opacity: 0.9; /*鼠标悬停时透明度发生变化*/
-}
-.delete-button{
-    background: #dc3545;
-    color: white;
-    border: none;
-}
-.delete-button:hover{
-    background: #c82333;
-}
-.move-button{
-    background: #28a745;
+
+/* 特殊按钮样式 */
+.delete-button {
+    background: #dc3545; /* 红色背景 */
     color: white;
 }
-.move-button:hover{
-    background: #218838;
+
+.delete-button:hover {
+    background: #c82333; /* 悬停时更深红色 */
 }
-.edit-button{
-    background: #007bff;
+
+.move-button {
+    background: #28a745; /* 绿色背景 */
     color: white;
 }
+
+.move-button:hover {
+    background: #218838; /* 悬停时更深绿色 */
+}
+
+.edit-button {
+    background: #ffc107; /* 黄色背景 */
+    color: black;
+}
+
 .edit-button:hover {
-    background: #0056b3;
+    background: #e0a800; /* 悬停时更深黄色 */
 }
-/* 描述界面样式 */
+
+/* =====================
+   弹窗样式
+===================== */
 #descriptionModal {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); /* 居中对齐 */
-    background: #fff;
+    background: white;
+    border-radius: 10px; /* 圆角 */
     padding: 20px;
     border: 1px solid #ddd;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影 */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* 阴影 */
     z-index: 1000; /* 置于顶层 */
+    width: 80%;
+    max-width: 400px;
+    text-align: left;
 }
 
 .hidden {
     display: none;
 }
-/* 手机屏幕优化 */
-@media screen and (max-width: 768px){/*为手机屏幕设计样式*/
-    .task-sections{
-        flex-direction: column;
+
+body::after{
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    display: none;
+}
+
+body.modal-open::after{
+    display:block;
+}
+
+/* =====================
+   响应式设计
+===================== */
+@media screen and (max-width: 768px) { /* 为小屏幕优化 */
+    .task-sections {
+        flex-direction: column; /* 切换为竖直布局 */
         align-items: center;
     }
-    #todocontainer, #donecontainer, #doingcontainer{
-        width: 90%;
+    #todocontainer, #donecontainer, #doingcontainer {
+        width: 90%; /* 容器宽度调整 */
         margin: 15px 0;
     }
-    button{
+    button {
         margin-top: 10px;
     }
-    li{
+    li {
         flex-direction: column;
         align-items: flex-start;
     }
