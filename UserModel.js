@@ -1,9 +1,7 @@
 const pool = require('./db');
-const bcrypto = require('bcrypto');
 
 // 创建新用户
 async function createUser(username, hashedPassword) {
-    const hashedPassword = await bcrypto.hash(plainPassword,10); // 加密密码
     const [result] = await pool.query(
         'INSERT INTO users (username, password) VALUES (?, ?)',
         [username, hashedPassword]
