@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/users'); // 导入用户路由
+const PORT = 3000;
 
 const app = express();
 const port = 3000;
