@@ -7,6 +7,7 @@ const cors = require('cors') // 添加CORS支持
 const PORT = 3000;
 const app = express(); // 创建 Express 实例
 app.use(express.json());
+app.use(cors())
 // 静态文件服务
 app.use(express.static(path.join(__dirname, 'public')));
 // 使用中间件解析 JSON 和 URL 编码数据
