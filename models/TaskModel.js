@@ -7,9 +7,9 @@ async function getTasks(){
 }
 
 // 创建任务
-async function createTask(userId, title, description, priority, dueDate) {
+async function createTask(userId, title, description, priority, dueDate, statis) {
     const [result] = await pool.query(
-        'INSERT INTO tasks (userId, title, description, priority, dueDate) VALUES (?,?,?,?,?)',
+        'INSERT INTO tasks (userId, title, description, priority, dueDate, status) VALUES (?,?,?,?,?,?)',
         [userId, title, description, priority, dueDate]
     );
     return result.insertId;

@@ -160,15 +160,17 @@ async function addTask() {
     document.getElementById('errormessage').textContent = '';
 
     try {
+        const status = mapStatusToBackend('todo')
         const response = await fetch('/tasks', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 userID: userId, // 传递 userID
                 title: taskText,
+                description: '',// 传递一个空描述
                 priority: prioritySelect.value,
                 dueDate,
-                status: 'todo', // 默认为后端的状态
+                status, // 默认为后端的状态
             }),
         });
         if (response.ok) {
