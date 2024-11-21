@@ -16,5 +16,9 @@ async function isUsernameTaken(username) {
     );
     return rows.length > 0;
 }
-
-module.exports = { createUser, isUsernameTaken};
+// 查找用户
+async function findUserByUsername(username) {
+    const [rows] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+    return rows[0]; // 返回匹配的用户对象
+}
+module.exports = { createUser, isUsernameTaken， findUserByUsername};

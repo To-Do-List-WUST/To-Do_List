@@ -25,4 +25,29 @@ router.post('/register', async (req, res) => {
         res.status(500).json({error: 'Internal server error'});
     }
 });
+// 用户登录路由
+router.post('/login', async (req, res) => {
+    console.log('Login endpoint hit');
+    console.log('Request body:', req.body);
+    const { username, password } = req.body;
+
+    try {
+        // 检查用户是否存在
+        const user = await findUserByUsername(username);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // 检查密码是否匹配
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(401).json({ error: 'Invalid password' });
+        }
+
+        res.status(200).json({ message: 'Login successful', username: user.username });
+    } catch (err) {
+        console.error('Error during login:', err.message);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 module.exports = router;
