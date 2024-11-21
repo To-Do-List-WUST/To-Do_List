@@ -32,12 +32,14 @@ function mapStatusToBackend(status) {
 // 从后端加载任务
 async function loadTasks() {
     try {
+        console.log('Sending GET request to /tasks'); // 调试日志，确认请求发出
         const response = await fetch('/tasks');
         if (response.ok) {
             const tasks = await response.json();
+            console.log('Tasks loaded successfully:', tasks); // 调试日志，确认任务加载
             renderTasks(tasks);
         } else {
-            console.error('Failed to load tasks');
+            console.error('Failed to load tasks', await response.text()); // 添加错误详细信息
         }
     } catch (err) {
         console.error('Error loading tasks:', err);
@@ -117,6 +119,7 @@ function createTaskElement(taskText, priority, dueDate, status) {
         const newFrontendStatus = getNextStatus(status);
         const newBackendStatus = mapStatusToBackend(newFrontendStatus); // 映射回后端状态
         try {
+            console.log(`Sending PUT request to update status to ${newBackendStatus}`); // 调试日志
             const response = await fetch(`/tasks/status`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
@@ -125,7 +128,7 @@ function createTaskElement(taskText, priority, dueDate, status) {
             if (response.ok) {
                 loadTasks(); // 重新加载任务列表
             } else {
-                console.error('Failed to update status');
+                console.error('Failed to update status', await response.text()); // 添加错误详细信息
             }
         } catch (err) {
             console.error('Error updating status:', err);
@@ -160,17 +163,17 @@ async function addTask() {
     document.getElementById('errormessage').textContent = '';
 
     try {
-        const status = mapStatusToBackend('todo')
+        console.log('Sending POST request to create a task'); // 调试日志
         const response = await fetch('/tasks', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 userID: userId, // 传递 userID
                 title: taskText,
-                description: '',// 传递一个空描述
+                description: '', // 默认传递一个空描述
                 priority: prioritySelect.value,
                 dueDate,
-                status, // 默认为后端的状态
+                status: 'todocontainer', // 默认为后端的状态
             }),
         });
         if (response.ok) {
