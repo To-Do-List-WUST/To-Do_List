@@ -1,8 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcrypt'); // 加密密码
-const { createUser, isUsernameTaken } = require('../models/UserModel');
+const { createUser, isUsernameTaken } = require('../models/UserModel'); // 更新目录
 
-const router = express.Router();
+const router =express.Router();
 
 // 用户注册路由
 router.post('/register', async (req, res) => {
