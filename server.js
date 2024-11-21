@@ -9,8 +9,6 @@ const app = express(); // 创建 Express 实例
 app.use(express.json());
 // 静态文件服务
 app.use(express.static(path.join(__dirname, 'public')));
-// 添加后端中间件
-const cors = require('cors');
 // 使用中间件解析 JSON 和 URL 编码数据
 app.use(bodyParser.json()); // 解析 JSON 格式的数据
 app.use(bodyParser.urlencoded({ extended: true })); // 解析 URL 编码的数据
