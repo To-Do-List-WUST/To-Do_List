@@ -164,7 +164,7 @@ async function addTask() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                userID: userId; // 传递userID，数据库
+                userID: userId, // 传递userID，数据库
                 title: taskText,
                 priority: prioritySelect.value,
                 dueDate,
