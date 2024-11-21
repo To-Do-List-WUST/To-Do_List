@@ -164,7 +164,7 @@ async function addTask() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                userID: userId, // 传递userID，数据库
+                userID: userId, // 传递 userID
                 title: taskText,
                 priority: prioritySelect.value,
                 dueDate,
@@ -175,8 +175,8 @@ async function addTask() {
             taskInput.value = '';
             loadTasks(); // 重新加载任务
         } else {
-            const error = await response.json();
-            console.error('Failed to create task',error.error);
+            const error = await response.text(); // 修改为解析文本，避免 HTML 错误响应的 JSON 解析错误
+            console.error('Failed to create task', error);
         }
     } catch (err) {
         console.error('Error creating task:', err.message);
@@ -202,4 +202,3 @@ function showDescription(description) {
     document.getElementById('taskDescriptionContent').textContent = description;
     modal.classList.remove('hidden');
 }
-
