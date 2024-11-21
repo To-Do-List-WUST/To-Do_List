@@ -1,5 +1,5 @@
 const express = require('express');
-const { getTasks, createTask, updateTask } = require('../models/TaskModel');
+const { getTasks, createTask } = require('../models/TaskModel');
 const router = express.Router();
 
 // 获取用户任务
