@@ -164,7 +164,7 @@ async function addTask() {
 
     try {
         console.log('Sending POST request to create a task'); // 调试日志
-        const response = await fetch('/tasks', {
+        const response = await fetch('http://47.242.219.237:3000/tasks', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
