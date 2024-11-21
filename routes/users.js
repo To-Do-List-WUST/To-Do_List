@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt'); // 加密密码
-const { createUser, isUsernameTaken } = require('../models/UserModel'); // 更新目录
+const { createUser, isUsernameTaken, findUserByUsername } = require('../models/UserModel'); // 更新目录
 
 const router =express.Router();
 
@@ -27,7 +27,6 @@ router.post('/register', async (req, res) => {
 });
 // 用户登录路由
 router.post('/login', async (req, res) => {
-    console.log('Login endpoint hit');
     console.log('Request body:', req.body);
     const { username, password } = req.body;
 
