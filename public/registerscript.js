@@ -7,7 +7,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
 
     try {
         // 发送注册请求到后端
-        const response = await fetch('/users/register', {
+        const response = await fetch('http://47.242.219.237:3000/users/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }),

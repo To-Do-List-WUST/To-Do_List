@@ -6,6 +6,8 @@ const router =express.Router();
 
 // 用户注册路由
 router.post('/register', async (req, res) => {
+    console.log('Register endpoint hit');
+    console.log('Request body:', req.body);
     const { username, password } = req.body; // 提取用户端数据
 
     try{
