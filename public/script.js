@@ -33,7 +33,7 @@ function mapStatusToBackend(status) {
 async function loadTasks() {
     try {
         console.log('Sending GET request to /tasks'); // 调试日志，确认请求发出
-        const response = await fetch('/tasks');
+        const response = await fetch('http://47.242.219.237:3000/tasks');
         if (response.ok) {
             const tasks = await response.json();
             console.log('Tasks loaded successfully:', tasks); // 调试日志，确认任务加载
