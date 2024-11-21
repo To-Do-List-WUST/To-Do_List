@@ -1,4 +1,4 @@
-const pool = require('./db');
+const pool = require('../db');
 
 // 创建新用户
 async function createUser(username, hashedPassword) {
