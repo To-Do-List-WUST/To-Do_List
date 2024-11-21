@@ -151,6 +151,7 @@ async function addTask() {
     const prioritySelect = document.getElementById('prioritySelect');
     const taskText = taskInput.value.trim();
     const dueDate = dueDateInput.value;
+    const userId = localStorage.getItem('userId');
 
     if (!taskText) {
         document.getElementById('errormessage').textContent = 'Task cannot be empty.';
@@ -163,20 +164,22 @@ async function addTask() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
+                userID: userId; // 传递userID，数据库
                 title: taskText,
                 priority: prioritySelect.value,
                 dueDate,
-                status: 'todocontainer', // 默认为后端的状态
+                status: 'todo', // 默认为后端的状态
             }),
         });
         if (response.ok) {
             taskInput.value = '';
             loadTasks(); // 重新加载任务
         } else {
-            console.error('Failed to create task');
+            const error = await response.json();
+            console.error('Failed to create task',error.error);
         }
     } catch (err) {
-        console.error('Error creating task:', err);
+        console.error('Error creating task:', err.message);
     }
 }
 

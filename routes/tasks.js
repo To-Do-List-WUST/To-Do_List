@@ -15,9 +15,9 @@ router.get('/', async (req, rss) => {
 
 // 创建新任务
 router.post('/', async (req,res) => {
-    const { userId, title, description, priority, dueDate} = req.body;
+    const { userID, title, description, priority, dueDate} = req.body;
     try{
-        const taskId = await createTask(userId, title, description, priority, dueDate);
+        const taskId = await createTask(userId, title, description, priority, dueDate, status);
         res.status(201).json({ message: 'Task created', taskId});
     } catch (err) {
         console.error('Error creating task:', err.message);
