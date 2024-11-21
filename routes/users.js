@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt'); // 加密密码
-const { createUser, isUsernameTaken } = require('../UserModel');
+const { createUser, isUsernameTaken } = require('../models/UserModel');
 
 const router = express.Router();
 
