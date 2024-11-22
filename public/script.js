@@ -59,7 +59,7 @@ function renderTasks(tasks) {
 
     tasks.forEach((task) => {
         const frontendStatus = mapStatusToFrontend(task.status); // 映射状态
-        const listItem = createTaskElement(task.title, task.priority, task.dueDate, frontendStatus);
+        const listItem = createTaskElement(task.id, task.title, task.priority, task.dueDate, frontendStatus, task.description);
         if (frontendStatus === 'todo') {
             todoList.appendChild(listItem);
         } else if (frontendStatus === 'doing') {
@@ -71,14 +71,14 @@ function renderTasks(tasks) {
 }
 
 // 创建任务元素
-function createTaskElement(taskText, priority, dueDate, status) {
+function createTaskElement(taskId, taskText, priority, dueDate, status, description) {
     const listItem = document.createElement('li');
     const taskTitle = document.createElement('p');
     taskTitle.textContent = taskText;
     listItem.appendChild(taskTitle);
 
     // 添加描述链接
-    let descriptionText = 'No description added.';
+    let descriptionText = description || 'No description added.';
     const descriptionLink = document.createElement('a');
     descriptionLink.textContent = 'View Description';
     descriptionLink.href = '#';
@@ -90,9 +90,13 @@ function createTaskElement(taskText, priority, dueDate, status) {
 
     // 添加倒计时
     const countdown = document.createElement('p');
-    updateCountdown(countdown, dueDate);
+    if (dueDate) {
+        updateCountdown(countdown, dueDate);
+        setInterval(() => updateCountdown(countdown, dueDate), 1000);
+    } else {
+        countdown.textContent = 'No due date';
+    }
     listItem.appendChild(countdown);
-    setInterval(() => updateCountdown(countdown, dueDate), 1000);
 
     // 添加操作按钮
     const buttonDiv = document.createElement('div');
@@ -100,16 +104,47 @@ function createTaskElement(taskText, priority, dueDate, status) {
 
     const editButton = document.createElement('button');
     editButton.textContent = 'Edit Description';
-    editButton.onclick = () => {
+    editButton.onclick = async () => {
         const newDescription = prompt('Enter a new description:', descriptionText);
-        if (newDescription) descriptionText = newDescription;
+        if (newDescription) {
+            descriptionText = newDescription;
+            try {
+                console.log('Sending PUT request to update description');
+                const response = await fetch(`http://47.242.219.237:3000/tasks/description`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ taskId, description: newDescription }),
+                });
+                if (!response.ok) {
+                    console.error('Failed to update description', await response.text());
+                }
+            } catch (err) {
+                console.error('Error updating description:', err);
+            }
+        }
     };
     buttonDiv.appendChild(editButton);
 
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
     deleteButton.className = 'delete-button';
-    deleteButton.onclick = () => listItem.remove();
+    deleteButton.onclick = async () => {
+        try {
+            console.log('Sending DELETE request to /tasks');
+            const response = await fetch(`http://47.242.219.237:3000/tasks`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ taskId }),
+            });
+            if (response.ok) {
+                listItem.remove();
+            } else {
+                console.error('Failed to delete task', await response.text());
+            }
+        } catch (err) {
+            console.error('Error deleting task:', err);
+        }
+    };
     buttonDiv.appendChild(deleteButton);
 
     // 添加状态切换按钮
@@ -120,15 +155,15 @@ function createTaskElement(taskText, priority, dueDate, status) {
         const newBackendStatus = mapStatusToBackend(newFrontendStatus); // 映射回后端状态
         try {
             console.log(`Sending PUT request to update status to ${newBackendStatus}`); // 调试日志
-            const response = await fetch(`/tasks/status`, {
+            const response = await fetch(`http://47.242.219.237:3000/tasks/status`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title: taskText, status: newBackendStatus }),
+                body: JSON.stringify({ taskId, status: newBackendStatus }),
             });
             if (response.ok) {
                 loadTasks(); // 重新加载任务列表
             } else {
-                console.error('Failed to update status', await response.text()); // 添加错误详细信息
+                console.error('Failed to update status', await response.text());
             }
         } catch (err) {
             console.error('Error updating status:', err);
@@ -153,7 +188,7 @@ async function addTask() {
     const dueDateInput = document.getElementById('dueDateInput');
     const prioritySelect = document.getElementById('prioritySelect');
     const taskText = taskInput.value.trim();
-    const dueDate = dueDateInput.value;
+    const dueDate = dueDateInput.value.trim() || null; // 如果没有填写 dueDate，则为 null
     const userId = localStorage.getItem('userId');
 
     if (!taskText) {
@@ -168,7 +203,7 @@ async function addTask() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                userID: userId, // 传递 userID
+                userID: userId,
                 title: taskText,
                 description: '', // 默认传递一个空描述
                 priority: prioritySelect.value,
@@ -178,6 +213,7 @@ async function addTask() {
         });
         if (response.ok) {
             taskInput.value = '';
+            dueDateInput.value = ''; // 清空输入
             loadTasks(); // 重新加载任务
         } else {
             const error = await response.text(); // 修改为解析文本，避免 HTML 错误响应的 JSON 解析错误
