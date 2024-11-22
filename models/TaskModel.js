@@ -47,4 +47,4 @@ async function deleteTask(taskId) {
     return result.affectedRows > 0;
 }
 
-module.exports = { getUsersTasks, createTask, updateTask, deleteTask, updateTaskDescription };
+module.exports = { getUserTasks, createTask, updateTask, deleteTask, updateTaskDescription };
