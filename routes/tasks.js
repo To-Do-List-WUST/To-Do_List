@@ -5,6 +5,12 @@ const router = express.Router();
 // 获取所有任务
 router.get('/', async (req, res) => {
     console.log('GET /tasks route hit'); // 确认请求到达了后端
+    const { userID } = req.query;
+
+    // 检查 userID 是否存在
+    if (!userID) {
+        return res.status(400).json({ error: 'User ID is required' });
+    }
     try {
         const tasks = await getTasks(userID);
         res.json(tasks);

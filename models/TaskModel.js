@@ -1,7 +1,7 @@
 const pool = require('../db');
 
 // 获取任务
-async function getTasks(userId) {
+async function getUserTasks(userId) {
     const [rows] = await pool.query('SELECT * FROM tasks WHERE userID = ?', [userId]);
     return rows;
 }
@@ -47,4 +47,4 @@ async function deleteTask(taskId) {
     return result.affectedRows > 0;
 }
 
-module.exports = { getTasks, createTask, updateTask, deleteTask, updateTaskDescription };
+module.exports = { getUsersTasks, createTask, updateTask, deleteTask, updateTaskDescription };
