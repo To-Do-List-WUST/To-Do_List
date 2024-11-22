@@ -1,8 +1,8 @@
 const pool = require('../db');
 
 // 获取任务
-async function getTasks() {
-    const [rows] = await pool.query('SELECT * FROM tasks');
+async function getTasks(userId) {
+    const [rows] = await pool.query('SELECT * FROM tasks WHERE userID = ?', [userId]);
     return rows;
 }
 

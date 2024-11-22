@@ -31,9 +31,14 @@ function mapStatusToBackend(status) {
 
 // 从后端加载任务
 async function loadTasks() {
+    const userId = localStorage.getItem('userId');
+    if(!userId){
+        console.error('User ID not found');
+        return;
+    }
     try {
         console.log('Sending GET request to /tasks'); // 调试日志，确认请求发出
-        const response = await fetch('http://47.242.219.237:3000/tasks');
+        const response = await fetch('http://47.242.219.237:3000/tasks?userID=${userId}');
         if (response.ok) {
             const tasks = await response.json();
             console.log('Tasks loaded successfully:', tasks); // 调试日志，确认任务加载
@@ -226,7 +231,12 @@ async function addTask() {
 
 // 更新倒计时
 function updateCountdown(element, dueDate) {
-    const remainingTime = new Date(dueDate) - new Date();
+    const due = new Date(dueDate);
+    const remainingTime = due - new Date();
+    if (isNaN(due.getTime())) {
+        element.textContent = 'Invalid due date';
+        return;
+    }
     if (remainingTime > 0) {
         const hours = Math.floor(remainingTime / (1000 * 60 * 60));
         const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));

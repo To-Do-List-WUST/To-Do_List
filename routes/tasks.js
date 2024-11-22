@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     console.log('GET /tasks route hit'); // 确认请求到达了后端
     try {
-        const tasks = await getTasks();
+        const tasks = await getTasks(userID);
         res.json(tasks);
     } catch (err) {
         console.error('Error fetching tasks:', err.message);
