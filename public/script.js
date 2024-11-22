@@ -38,7 +38,7 @@ async function loadTasks() {
     }
     try {
         console.log('Sending GET request to /tasks'); // 调试日志，确认请求发出
-        const response = await fetch('http://47.242.219.237:3000/tasks?userID=${userId}');
+        const response = await fetch(`http://47.242.219.237:3000/tasks?userID=${userId}`);
         if (response.ok) {
             const tasks = await response.json();
             console.log('Tasks loaded successfully:', tasks); // 调试日志，确认任务加载

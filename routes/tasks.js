@@ -1,5 +1,5 @@
 const express = require('express');
-const { getTasks, createTask, updateTask, deleteTask, updateTaskDescription } = require('../models/TaskModel');
+const { getUserTasks, createTask, updateTask, deleteTask, updateTaskDescription } = require('../models/TaskModel');
 const router = express.Router();
 
 // 获取所有任务
@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
         return res.status(400).json({ error: 'User ID is required' });
     }
     try {
-        const tasks = await getTasks(userID);
+        const tasks = await getUserTasks(userID);
         res.json(tasks);
     } catch (err) {
         console.error('Error fetching tasks:', err.message);
