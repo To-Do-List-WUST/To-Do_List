@@ -240,17 +240,24 @@ async function addTask() {
 
 // 更新倒计时
 function updateCountdown(element, dueDate) {
+    if (!dueDate) {
+        element.textContent = 'No due date';
+        return;
+    }
+
     const due = new Date(dueDate);
-    const remainingTime = due - new Date();
     if (isNaN(due.getTime())) {
         element.textContent = 'Invalid due date';
         return;
     }
+
+    const remainingTime = due - new Date();
     if (remainingTime > 0) {
-        const hours = Math.floor(remainingTime / (1000 * 60 * 60));
+        const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-        element.textContent = `Time remaining: ${hours}h ${minutes}m ${seconds}s`;
+        element.textContent = `Time remaining: ${days}d ${hours}h ${minutes}m ${seconds}s`;
     } else {
         element.textContent = "Time's up!";
     }
