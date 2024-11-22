@@ -32,20 +32,20 @@ function mapStatusToBackend(status) {
 // 从后端加载任务
 async function loadTasks() {
     const userId = localStorage.getItem('userId');
-    console.log('Sending GET request to /tasks with userID:', userId);
-    if(!userId){
-        console.error('User ID not found');
+    if (!userId) {
+        console.error('User ID not found in local storage');
         return;
     }
+
     try {
-        console.log('Sending GET request to /tasks'); // 调试日志，确认请求发出
+        console.log('Sending GET request to /tasks with userID:', userId); // 调试信息
         const response = await fetch(`http://47.242.219.237:3000/tasks?userID=${userId}`);
         if (response.ok) {
             const tasks = await response.json();
-            console.log('Tasks loaded successfully:', tasks); // 调试日志，确认任务加载
+            console.log('Tasks loaded successfully:', tasks); // 调试信息
             renderTasks(tasks);
         } else {
-            console.error('Failed to load tasks', await response.text()); // 添加错误详细信息
+            console.error('Failed to load tasks', await response.text());
         }
     } catch (err) {
         console.error('Error loading tasks:', err);
@@ -236,6 +236,7 @@ async function addTask() {
         console.error('Error creating task:', err.message);
     }
 }
+
 
 // 更新倒计时
 function updateCountdown(element, dueDate) {

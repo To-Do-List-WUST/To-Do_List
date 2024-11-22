@@ -31,7 +31,7 @@ async function initializeDatabase(){
                 priority ENUM('low','medium','high') DEFAULT 'low',
                 status ENUM('todocontainer','doingcontainer','donecontainer') DEFAULT 'todocontainer',
                 createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                dueDate DATE,
+                dueDate DATETIME,
                 FOREIGN KEY (userID) REFERENCES users(id) ON DELETE CASCADE
             )
         `);

@@ -4,21 +4,24 @@ const router = express.Router();
 
 // 获取所有任务
 router.get('/', async (req, res) => {
-    console.log('GET /tasks route hit'); // 确认请求到达了后端
     const { userID } = req.query;
 
     // 检查 userID 是否存在
     if (!userID) {
         return res.status(400).json({ error: 'User ID is required' });
     }
+
     try {
+        console.log('Received userID:', userID); // 调试信息
         const tasks = await getUserTasks(userID);
+        console.log('Fetched tasks:', tasks); // 调试信息
         res.json(tasks);
     } catch (err) {
         console.error('Error fetching tasks:', err.message);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
 
 // 创建新任务
 router.post('/', async (req, res) => {
