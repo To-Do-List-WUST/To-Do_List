@@ -32,6 +32,7 @@ function mapStatusToBackend(status) {
 // 从后端加载任务
 async function loadTasks() {
     const userId = localStorage.getItem('userId');
+    console.log('Sending GET request to /tasks with userID:', userId);
     if(!userId){
         console.error('User ID not found');
         return;
@@ -64,7 +65,14 @@ function renderTasks(tasks) {
 
     tasks.forEach((task) => {
         const frontendStatus = mapStatusToFrontend(task.status); // 映射状态
-        const listItem = createTaskElement(task.id, task.title, task.priority, task.dueDate, frontendStatus, task.description);
+        const listItem = createTaskElement(
+            task.id,           // taskId
+            task.title,        // taskText
+            task.priority,     // priority
+            task.dueDate,      // dueDate
+            frontendStatus,    // status
+            task.description   // description
+        );
         if (frontendStatus === 'todo') {
             todoList.appendChild(listItem);
         } else if (frontendStatus === 'doing') {
