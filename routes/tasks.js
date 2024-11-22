@@ -1,5 +1,5 @@
 const express = require('express');
-const { getTasks, createTask, updateTask, deleteTask } = require('../models/TaskModel');
+const { getTasks, createTask, updateTask, deleteTask, updateTaskDescription } = require('../models/TaskModel');
 const router = express.Router();
 
 // 获取所有任务
@@ -14,6 +14,7 @@ router.get('/', async (req, res) => {
     }
 });
 
+// 创建新任务
 router.post('/', async (req, res) => {
     const { userID, title, description, priority, dueDate } = req.body;
     const status = 'todocontainer'; // 默认状态为 'todocontainer'
@@ -26,12 +27,13 @@ router.post('/', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
 // 更新任务状态
 router.put('/status', async (req, res) => {
-    const { title, status } = req.body;
+    const { taskId, status } = req.body;
 
     try {
-        const updated = await updateTask(title, status);
+        const updated = await updateTask(taskId, status);
         if (updated) {
             res.status(200).json({ message: 'Task status updated' });
         } else {
@@ -42,12 +44,30 @@ router.put('/status', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
-// 删除任务
-router.delete('/', async (req, res) => {
-    const { title } = req.body;
+
+// 更新任务描述
+router.put('/description', async (req, res) => {
+    const { taskId, description } = req.body;
 
     try {
-        const deleted = await deleteTask(title);
+        const updated = await updateTaskDescription(taskId, description);
+        if (updated) {
+            res.status(200).json({ message: 'Task description updated' });
+        } else {
+            res.status(404).json({ error: 'Task not found' });
+        }
+    } catch (err) {
+        console.error('Error updating task description:', err.message);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// 删除任务
+router.delete('/', async (req, res) => {
+    const { taskId } = req.body;
+
+    try {
+        const deleted = await deleteTask(taskId);
         if (deleted) {
             res.status(200).json({ message: 'Task deleted' });
         } else {
@@ -58,4 +78,5 @@ router.delete('/', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
 module.exports = router;
